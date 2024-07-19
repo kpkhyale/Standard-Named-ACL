@@ -1,0 +1,123 @@
+Standard Named ACL
+
+Extended Access-List
+
+Pune
+
+en
+conf t
+hostname Pune
+line con 0
+password kiran
+exit
+
+line aux 0
+password kiran
+exit
+
+line vty 0 4
+password kiran
+exit
+
+int fa0/0
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.1 255.0.0.0
+clock rate 64000
+bandwidth 64
+no shut
+exit
+
+route ospf 1
+network 192.168.1.0 0.0.0.255 area 0
+network 10.0.0.0 0.255.255.255 area 0
+exit
+
+
+
+
+Mumbai
+
+en
+conf t
+hostname Mumbai
+line con 0
+password kiran
+exit
+
+line aux 0
+password kiran
+exit
+
+line vty 0 4
+password kiran
+exit
+
+int fa0/0
+ip add 192.168.2.1 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.2 255.0.0.0
+exit
+
+int s0/1
+ip add 11.0.0.1 255.0.0.0
+clock rate 64000
+bandwidth 64
+no shut
+exit
+
+router ospf 1
+network 192.168.2.0 0.0.0.255 area 0
+network 11.0.0.0 0.255.255.255 area 0
+network 10.0.0.0 0.255.255.255 area 0
+exit
+
+ip access-list standard CCNA
+deny 192.168.1.1 0.0.0.0
+deny host 192.168.1.2
+deny 192.168.3.0 0.0.0.255
+permit any
+exit
+
+int fa0/0
+ip access-group CCNA out
+exit
+
+
+
+Solapur
+
+en
+conf t
+hostname Solapur
+line con 0
+password kiran
+exit
+
+line aux 0
+password kiran
+exit
+
+line vty 0 4
+password kiran
+exit
+
+int fa0/0
+ip add 192.168.3.1 255.255.255.0
+no shut
+exit
+
+int s0/1
+ip add 10.0.0.2 255.0.0.0
+exit
+
+route ospf 1
+network 192.168.3.0 0.0.0.255 area 0
+network 11.0.0.0 0.255.255.255 area 0
+
